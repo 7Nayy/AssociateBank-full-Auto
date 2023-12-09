@@ -75,3 +75,63 @@ def obtenir_informations_institutions(access_token):
 
         # En cas d'échec, renvoyer None ou une valeur par défaut
         return None
+
+def build_link(access_token):
+
+    url = "https://bankaccountdata.gocardless.com/api/v2/requisitions/"
+
+    headers = {
+        "accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    data = {
+        "redirect": "https://7nayy.pythonanywhere.com/menu/",
+        "institution_id": "HELLO_BANK_BNPAFRPPXXX",
+        "user_language": "FR",
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    try:
+        response.raise_for_status()
+        print("Requête pour créer une réquisition réussie ! Voici la réponse JSON :")
+        print(response.json())
+        real_response = response.json().get("id")
+        return real_response
+    except requests.exceptions.HTTPError as err:
+        print(f"Échec de la requête pour créer une réquisition avec le code d'état {response.status_code} :")
+        print(err)
+        print(response.text)
+
+
+
+
+def connect(access_token,real_response):
+    url_create_requisition = "https://bankaccountdata.gocardless.com/api/v2/requisitions/"
+    headers = {
+        "accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    data_requisition = {
+        "redirect": "http://www.yourwebpage.com",
+        "institution_id": "REVOLUT_REVOGB21",
+        "user_language": "EN",
+    }
+
+    # Utilisez l'ID de la réquisition pour effectuer une nouvelle requête GET pour les transactions
+    url_get_transactions = f"https://bankaccountdata.gocardless.com/api/v2/requisitions/{real_response}/transactions/"
+
+    try:
+        response_transactions = requests.get(url_get_transactions, headers=headers)
+        response_transactions.raise_for_status()
+        print("Requête GET pour les transactions réussie ! Voici la réponse JSON :")
+        print(response_transactions.json())
+    except requests.exceptions.HTTPError as err:
+        print(f"Échec de la requête GET avec le code d'état {response_transactions.status_code} :")
+        print(err)
+        print(response_transactions.text)
+

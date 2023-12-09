@@ -1,6 +1,5 @@
 from config import SECRET_ID, SECRET_KEY
-from request import obtenir_token, actualiser_token, obtenir_informations_institutions
-
+from request import obtenir_token, actualiser_token, obtenir_informations_institutions, build_link,connect
 
 access_token, refresh_token = obtenir_token(SECRET_ID, SECRET_KEY)
 
@@ -20,3 +19,6 @@ else:
     print("Échec de l'obtention des tokens.")
 
 
+print(build_link(access_token))
+
+print(connect(access_token))
