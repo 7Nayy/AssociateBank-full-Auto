@@ -1,4 +1,3 @@
-from config import SECRET_ID, SECRET_KEY
 import requests
 
 def obtenir_token(secret_id, secret_key):
@@ -98,8 +97,8 @@ def build_link(access_token):
         response.raise_for_status()
         print("Requête pour créer une réquisition réussie ! Voici la réponse JSON :")
         print(response.json())
-        real_response = response.json().get("id")
-        return real_response
+        response.json().get("id")
+        return response
     except requests.exceptions.HTTPError as err:
         print(f"Échec de la requête pour créer une réquisition avec le code d'état {response.status_code} :")
         print(err)
@@ -108,7 +107,8 @@ def build_link(access_token):
 
 
 
-def connect(access_token,real_response):
+def create_bridge(access_token, response):
+    rel = response.json().get("id")
     url_create_requisition = "https://bankaccountdata.gocardless.com/api/v2/requisitions/"
     headers = {
         "accept": "application/json",
@@ -118,12 +118,12 @@ def connect(access_token,real_response):
 
     data_requisition = {
         "redirect": "http://www.yourwebpage.com",
-        "institution_id": "REVOLUT_REVOGB21",
-        "user_language": "EN",
+        "institution_id": "HELLO_BANK_BNPAFRPPXXX",
+        "user_language": "FR",
     }
 
     # Utilisez l'ID de la réquisition pour effectuer une nouvelle requête GET pour les transactions
-    url_get_transactions = f"https://bankaccountdata.gocardless.com/api/v2/requisitions/{real_response}/transactions/"
+    url_get_transactions = f"https://bankaccountdata.gocardless.com/api/v2/requisitions/{rel}/"
 
     try:
         response_transactions = requests.get(url_get_transactions, headers=headers)
@@ -134,4 +134,25 @@ def connect(access_token,real_response):
         print(f"Échec de la requête GET avec le code d'état {response_transactions.status_code} :")
         print(err)
         print(response_transactions.text)
+
+
+
+def acces_account(access_token, account_id):
+    url = f"https://bankaccountdata.gocardless.com/api/v2/accounts/{account_id}/transactions/"
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        print("Requête GET réussie ! Voici la réponse JSON :")
+        print(response.json())
+    except requests.exceptions.HTTPError as err:
+        print(f"Échec de la requête GET avec le code d'état {response.status_code} :")
+        print(err)
+        print(response.text)
+
 
