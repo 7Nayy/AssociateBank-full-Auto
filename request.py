@@ -1,4 +1,6 @@
 import requests
+import json
+
 
 def obtenir_token(secret_id, secret_key):
     url_token = "https://bankaccountdata.gocardless.com/api/v2/token/new/"
@@ -154,5 +156,43 @@ def acces_account(access_token, account_id):
         print(f"Échec de la requête GET avec le code d'état {response.status_code} :")
         print(err)
         print(response.text)
+
+
+import requests
+
+def obtenir_transactions(account_id, access_token):
+    url = f"https://bankaccountdata.gocardless.com/api/v2/accounts/{account_id}/transactions/"
+    headers = {
+        "accept": "application/json",
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+
+        data = response.json()
+
+        # Assurez-vous que la structure des données est conforme à vos attentes
+        if 'transactions' in data and 'booked' in data['transactions']:
+            transactions = data['transactions']['booked']
+
+            # Utiliser une liste en compréhension pour extraire les champs nécessaires
+            transactions_filtrees = [
+                {
+                    "amount": transaction.get("transactionAmount", {}).get("amount"),
+                    "bankTransactionCode": transaction.get("bankTransactionCode"),
+                    "bookingDate": transaction.get("bookingDate"),
+                }
+                for transaction in transactions
+            ]
+
+            return transactions_filtrees
+
+    except requests.exceptions.HTTPError as err:
+        print(f"Échec de la requête GET avec le code d'état {response.status_code} :")
+        print(err)
+        print(response.text)
+        return None
 
 
