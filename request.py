@@ -1,6 +1,4 @@
 import requests
-import json
-
 
 def obtenir_token(secret_id, secret_key):
     url_token = "https://bankaccountdata.gocardless.com/api/v2/token/new/"

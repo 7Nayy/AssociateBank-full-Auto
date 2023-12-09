@@ -7,8 +7,6 @@ access_token, refresh_token = obtenir_token(SECRET_ID, SECRET_KEY)
 if access_token and refresh_token:
     print(f"Access Token initial : {access_token}")
 
-    # Simuler l'expiration du token (à remplacer par votre logique d'expiration)
-    # En pratique, vous vérifieriez si le token est expiré avant chaque requête
     access_token = actualiser_token(refresh_token)
 
     if access_token:
