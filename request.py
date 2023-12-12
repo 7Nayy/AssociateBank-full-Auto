@@ -155,9 +155,6 @@ def acces_account(access_token, account_id):
         print(err)
         print(response.text)
 
-
-import requests
-
 def obtenir_transactions(account_id, access_token):
     url = f"https://bankaccountdata.gocardless.com/api/v2/accounts/{account_id}/transactions/"
     headers = {
