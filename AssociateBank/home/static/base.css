@@ -58,4 +58,131 @@ ol{
     font-size: 28px;
 }
 
+#header ul.menu{
+    list-style: none;
+    float: left;
+    margin-left: 15%;
+    margin-top: 2%;
+}
 
+#header ul.menu li{
+    float: left;
+    padding: 4px 10px;
+}
+
+#header ul.menu li.selected a, #header ul.menu li.selected a:hover {
+    color: blue;
+    font-weight: bold;
+}
+
+#header a{
+    color: #fff;
+}
+
+#header a:hover {
+    color: #fff;
+}
+
+#header .user {
+    float: right;
+    padding-top: 4px;
+}
+
+
+/*WIP content*/
+#content{
+    padding: 30px 100px;
+}
+
+/*WIP foms*/
+form{
+    overflow: auto;
+}
+
+form p{
+    width: 100%;
+    overflow: auto;
+}
+
+label{
+    float: left;
+    clear: both;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+input, textarea {
+    clear: both;
+
+    margin: 0 15px 10px;
+    background: #efefef;
+    border: 0;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+input[type=submit], a.button{
+    font-weight: bold;
+    background: blue;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+errorlist{
+    color: red;
+    float: left;
+    clear: both;
+    padding-left: 10px;
+}
+
+.helptext{
+    margin: 0 0 20px 0;
+    color: white;
+    clear: both;
+    float: left;
+    font-size: 13px;
+}
+
+/*WIP message*/
+ul.messages{
+    margin: 10px 100px;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.messages li.success,
+ul.messages li.warning,
+ul.messages li.error,
+ul.messages li.info{
+    margin: 0;
+    padding: 14px 20px;
+    list-style: none;
+    color: white;
+}
+
+ul.messages li.success{background: greenyellow}
+ul.messages li.success a{background: green}
+
+ul.messages li.error{background: red; color: palevioletred}
+ul.messages li.error{color: palevioletred}
+
+ul.messages li.info{background: #faffae; color:#696b4e}
+ul.messages li.info a{color:#1586de}
+
+ul.messages li.warning{background: #de9404}
+ul.messages li.warning a{color: orange}
+
+ul.messages li a.close{
+    margin: 0;
+    float: right;
+    opacity: 1;
+    border: 0;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.login-form{
+    float: left;
+}
