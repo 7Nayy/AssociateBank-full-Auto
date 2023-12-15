@@ -20,6 +20,5 @@ urlpatterns = [
 
     # user registration
     path('register/', views.register, name='register'),
-    path('profile/', views.profile, name='profile'),
 
 ]

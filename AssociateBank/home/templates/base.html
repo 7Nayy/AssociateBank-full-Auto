@@ -9,12 +9,12 @@
 <body>
     <div id="header">
         <span class="logo">Django Authentification</span>
-        {% if request.user.is_authenficated %}
-        <ul class="menu ">
-            <li {% if section =="home" %} class="selected" {% endif %}>
-                <a href="{% url 'home' %}">Home</a>
-            </li>
-        </ul>
+        {% if request.user.is_authenticated %}
+            <ul class="menu">
+                <li {% if section == "home" %} class="selected" {% endif %}>
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+            </ul>
         {% endif %}
     </div>
     <div id="content">
